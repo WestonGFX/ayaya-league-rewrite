@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["tests/**/*.ts", "renderer_ui/src/**/*.ts", "renderer_ui/src/**/*.vue"],
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "allowJs": true
+  }
+}

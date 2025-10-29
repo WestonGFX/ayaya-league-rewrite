@@ -7,6 +7,7 @@
       :min="setting.min||0"
       :max="setting.max||100"
       :step="setting.step || 1"
+      @change="onChange(path, sid, setting)"
     />
   </div>
 </template>
@@ -16,12 +17,25 @@ import { defineComponent } from "vue";
 import type { PropType } from "vue";
 import type { SettingNumber } from "../../../src/models/renderer/SettingsGroup";
 
+declare module AyayaApi {
+  function changeSetting(path: string, key: string, value: any);
+}
+
 export default defineComponent({
   name: "SettingNumber",
   props: {
     setting: Object as PropType<SettingNumber>,
     path: String,
     sid: String,
+  },
+  methods: {
+    onChange(path: string, sid: string, setting: SettingNumber) {
+      try {
+        AyayaApi.changeSetting(path, sid, setting.value);
+      } catch (err) {
+        console.error('onChange failed:', err);
+      }
+    },
   },
 });
 </script>
